@@ -79,7 +79,7 @@ if [ "$1" = 'vault' ]; then
     fi
 
     # Allow mlock to avoid swapping Vault memory to disk
-    setcap cap_ipc_lock=+ep $(readlink -f $(which vault))
+    setcap cap_ipc_lock=+ep $(readlink -f $(which vault)) || true # add `|| true` so the following logic can be reached
 
     # In the case vault has been started in a container without IPC_LOCK privileges
     if ! vault -version 2> /dev/null; then
